@@ -27,6 +27,7 @@ local string_lower = string.lower
 local process = require "ngx.process"
 local ngx_decode_base64 = ngx.decode_base64
 local aes = require "resty.aes"
+local jxapi = require "resty.jxwaf.jxapi"
 local _M = {}
 _M.version = "3.0"
 
@@ -772,6 +773,20 @@ function _M.black_ip_check()
       exit_code.return_attack_ip()
     end
 	end
+end
+
+
+
+
+function _M.api_protection()
+  local host = ngx.var.host or ngx.ctx.wildcard_host
+  local req_host = _update_waf_rule[host]
+	if req_host and req_host['protection_set']['api_protection'] == "true" then
+    local check_result = jxapi.check()
+    if not check_result then
+      local result = jxapi.learn()
+    end
+  end
 end
 
 function _M.jxcheck_protection()
