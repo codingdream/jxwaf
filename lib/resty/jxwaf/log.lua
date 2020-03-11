@@ -263,6 +263,35 @@ if log_host then
         return 
       end
     end
+    local api_log = ngx.ctx.api_log
+    if api_log then
+      local api_uuid = uuid
+      local api_status = status
+      local api_request_time = request_time
+      local api_log_type = api_log['log_type']
+      local api_raw_get = api_log['raw_get']
+      local api_raw_header = api_log['raw_header']
+      local api_raw_post = api_log['raw_post']
+      local api_get_level = api_log['get_level'] 
+      local api_get_length = api_log['get_length'] 
+      local api_get_lex = api_log['get_lex']
+      local api_post_level = api_log['post_level'] 
+      local api_post_length = api_log['post_length'] 
+      local api_post_lex = api_log['post_lex'] 
+      local api_header_level = api_log['header_level'] 
+      local api_header_length = api_log['header_length'] 
+      local api_header_lex = api_log['header_lex'] 
+      local api_client,api_config = aliyun_log.init_config(endpoint,project,logstore,source,access_id,access_key,topic.."_api_log")
+      if not api_client then
+        ngx.log(ngx.ERR,"aliyun log init client error!")
+        return 
+      end
+      local aliyun_send_attack_log_result = aliyun_log.api_send_log(api_client,api_config,32,api_uuid,api_status,api_request_time,api_log_type,api_raw_get,api_raw_header,api_raw_post,api_get_level,api_get_length,api_get_lex,api_post_level,api_post_length,api_post_lex,api_header_level,api_header_length,api_header_lex)
+      if not aliyun_send_attack_log_result then
+        ngx.log(ngx.ERR,"aliyun log send attack_log error!")
+        return 
+      end
+    end
   end
   --aliyun log
 end
