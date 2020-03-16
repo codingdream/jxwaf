@@ -144,8 +144,8 @@ function _M.send_log(client,config,message,headers)
   return result
 end
 
-function _M.api_send_log(client,config,count,api_uuid,api_status,api_request_time,api_log_type,api_raw_get,api_raw_header,api_raw_post,api_get_level,api_get_length,api_get_lex,api_post_level,api_post_length,api_post_lex,api_header_level,api_header_length,api_header_lex)
-  local result =aliyun_log.log_producer_client_add_log(client,count,"uuid",api_uuid,"status",api_status,"request_time",api_request_time,"log_type",api_log_type,"raw_get",api_raw_get,"raw_header",api_raw_header,"raw_post",api_raw_post,"get_level",api_get_level,"get_length",api_get_length,"get_lex",api_get_lex,"post_level",api_post_level,"post_length",api_post_length,"post_lex",api_post_lex,"header_level",api_header_level,"header_length",api_header_length,"header_lex",api_header_lex)
+function _M.api_send_log(client,config,count,api_uuid,api_status,api_request_time,api_log_type,api_raw_get,api_raw_header,api_raw_post,api_get_level,api_get_length,api_get_lex,api_post_level,api_post_length,api_post_lex,api_header_level,api_header_length,api_header_lex,api_uri)
+  local result =aliyun_log.log_producer_client_add_log(client,count,"uuid",api_uuid,"status",api_status,"request_time",api_request_time,"log_type",api_log_type,"raw_get",api_raw_get,"raw_header",api_raw_header,"raw_post",api_raw_post,"get_level",api_get_level,"get_length",api_get_length,"get_lex",api_get_lex,"post_level",api_post_level,"post_length",api_post_length,"post_lex",api_post_lex,"header_level",api_header_level,"header_length",api_header_length,"header_lex",api_header_lex,"uri",api_uri)
   if result ~= 0 then
     ngx.log(ngx.ERR,"fail send message")
     return nil

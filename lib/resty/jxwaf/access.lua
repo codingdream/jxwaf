@@ -7,4 +7,5 @@ waf.bot_auth_check()
 waf.limitreq_check()
 waf.redirect_https()
 waf.jxcheck_protection()
+waf.api_protection()
 

@@ -272,21 +272,22 @@ if log_host then
       local api_raw_get = api_log['raw_get']
       local api_raw_header = api_log['raw_header']
       local api_raw_post = api_log['raw_post']
-      local api_get_level = api_log['get_level'] 
-      local api_get_length = api_log['get_length'] 
+      local api_get_level = tostring(api_log['get_level'])
+      local api_get_length = tostring(api_log['get_length']) 
       local api_get_lex = api_log['get_lex']
-      local api_post_level = api_log['post_level'] 
-      local api_post_length = api_log['post_length'] 
+      local api_post_level = tostring(api_log['post_level']) 
+      local api_post_length = tostring(api_log['post_length']) 
       local api_post_lex = api_log['post_lex'] 
-      local api_header_level = api_log['header_level'] 
-      local api_header_length = api_log['header_length'] 
+      local api_header_level = tostring(api_log['header_level']) 
+      local api_header_length = tostring(api_log['header_length']) 
       local api_header_lex = api_log['header_lex'] 
+      local api_uri = api_log['uri']
       local api_client,api_config = aliyun_log.init_config(endpoint,project,logstore,source,access_id,access_key,topic.."_api_log")
       if not api_client then
         ngx.log(ngx.ERR,"aliyun log init client error!")
         return 
       end
-      local aliyun_send_attack_log_result = aliyun_log.api_send_log(api_client,api_config,32,api_uuid,api_status,api_request_time,api_log_type,api_raw_get,api_raw_header,api_raw_post,api_get_level,api_get_length,api_get_lex,api_post_level,api_post_length,api_post_lex,api_header_level,api_header_length,api_header_lex)
+      local aliyun_send_attack_log_result = aliyun_log.api_send_log(api_client,api_config,34,api_uuid,api_status,api_request_time,api_log_type,api_raw_get,api_raw_header,api_raw_post,api_get_level,api_get_length,api_get_lex,api_post_level,api_post_length,api_post_lex,api_header_level,api_header_length,api_header_lex,api_uri)
       if not aliyun_send_attack_log_result then
         ngx.log(ngx.ERR,"aliyun log send attack_log error!")
         return 
