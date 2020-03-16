@@ -267,7 +267,7 @@ if log_host then
     if api_log then
       local api_uuid = uuid
       local api_status = status
-      local api_request_time = request_time
+      local api_request_time = localtime
       local api_log_type = api_log['log_type']
       local api_raw_get = api_log['raw_get']
       local api_raw_header = api_log['raw_header']
