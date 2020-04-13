@@ -282,12 +282,13 @@ if log_host then
       local api_header_length = tostring(api_log['header_length']) 
       local api_header_lex = api_log['header_lex'] 
       local api_uri = api_log['uri']
+      local api_client_ip = ngx.var.remote_addr
       local api_client,api_config = aliyun_log.init_config(endpoint,project,logstore,source,access_id,access_key,topic.."_api_log")
       if not api_client then
         ngx.log(ngx.ERR,"aliyun log init client error!")
         return 
       end
-      local aliyun_send_attack_log_result = aliyun_log.api_send_log(api_client,api_config,34,api_uuid,api_status,api_request_time,api_log_type,api_raw_get,api_raw_header,api_raw_post,api_get_level,api_get_length,api_get_lex,api_post_level,api_post_length,api_post_lex,api_header_level,api_header_length,api_header_lex,api_uri)
+      local aliyun_send_attack_log_result = aliyun_log.api_send_log(api_client,api_config,36,api_uuid,api_status,api_request_time,api_log_type,api_raw_get,api_raw_header,api_raw_post,api_get_level,api_get_length,api_get_lex,api_post_level,api_post_length,api_post_lex,api_header_level,api_header_length,api_header_lex,api_uri,api_client_ip)
       if not aliyun_send_attack_log_result then
         ngx.log(ngx.ERR,"aliyun log send attack_log error!")
         return 
