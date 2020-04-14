@@ -176,11 +176,19 @@ if log_host then
     --local logstore = log_host['log_set']['logstore'] or config_info.waf_api_key
     local project = log_host['log_set']['aliyun_project']
     local logstore = log_host['log_set']['aliyun_logstore']
+    local api_logstore = "jxwaf_api_secure"
+    local aliyun_online = log_host['log_set']['aliyun_online']
+    local api_access_id 
+    local api_access_key 
+    if aliyun_online == "true" then
+      api_access_id = log_host['log_set']['aliyun_access_id']
+      api_access_key = log_host['log_set']['aliyun_access_secret']
+    end 
     local source = ngx.var.hostname
     --local access_id = log_host['log_set']['access_id'] or ""
     --local access_key = log_host['log_set']['access_key'] or ""
-    local access_id = config_info.aliyun_access_id
-    local access_key = config_info.aliyun_access_secret
+    local access_id = api_access_id or config_info.aliyun_access_id
+    local access_key = api_access_key or config_info.aliyun_access_secret
     local topic =  host
     local rule_log = ngx.ctx.rule_log
     if rule_log then
@@ -264,7 +272,7 @@ if log_host then
       end
     end
     local api_log = ngx.ctx.api_log
-    if api_log then
+    if api_log and aliyun_online == "true" then
       local api_uuid = uuid
       local api_status = status
       local api_request_time = localtime
@@ -283,7 +291,7 @@ if log_host then
       local api_header_lex = api_log['header_lex'] 
       local api_uri = api_log['uri']
       local api_client_ip = ngx.var.remote_addr
-      local api_client,api_config = aliyun_log.init_config(endpoint,project,logstore,source,access_id,access_key,topic.."_api_log")
+      local api_client,api_config = aliyun_log.init_config(endpoint,project,api_logstore,source,access_id,access_key,topic.."_api_log")
       if not api_client then
         ngx.log(ngx.ERR,"aliyun log init client error!")
         return 
