@@ -177,6 +177,7 @@ if log_host then
     local project = log_host['log_set']['aliyun_project']
     local logstore = log_host['log_set']['aliyun_logstore']
     local api_logstore = "jxwaf_api_secure"
+    local api_protect_logstore =  "jxwaf_api_protect"
     local aliyun_online = log_host['log_set']['aliyun_online']
     local api_access_id 
     local api_access_key 

@@ -782,8 +782,14 @@ function _M.api_protection()
   local host = ngx.var.host or ngx.ctx.wildcard_host
   local req_host = _update_waf_rule[host]
 	if req_host and req_host['protection_set']['api_protection'] == "true" then
-    local check_result = jxapi.check()
-    if not check_result then
+    local jxapi_protection_set = req_host['api_protection_set']
+    local jxapi_protection_conf_set = req_host['api_protection_conf_set']
+    local check_result = jxapi.check(jxapi_protection_conf_set,jxapi_protection_set)
+    if  check_result then
+      if jxapi_protection_conf_set['deny_mode'] == "true" then
+        ngx.exit(403)
+      end
+    else
       local result = jxapi.learn()
     end
   end
