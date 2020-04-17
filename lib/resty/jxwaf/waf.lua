@@ -784,9 +784,9 @@ function _M.api_protection()
 	if req_host and req_host['protection_set']['api_protection'] == "true" then
     local jxapi_protection_set = req_host['api_protection_set']
     local jxapi_protection_conf_set = req_host['api_protection_conf_set']
-    local check_result = jxapi.check(jxapi_protection_conf_set,jxapi_protection_set)
-    if  check_result then
-      if jxapi_protection_conf_set['deny_mode'] == "true" then
+    local mode_result,check_result = jxapi.check(jxapi_protection_conf_set,jxapi_protection_set)
+    if  mode_result then
+      if check_result and jxapi_protection_conf_set['deny_mode'] == "true" then
         ngx.exit(403)
       end
     else

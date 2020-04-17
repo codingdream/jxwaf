@@ -290,6 +290,10 @@ local function _http_body()
 		ngx.log(ngx.ERR,"request body size larger than client_body_buffer_size, refuse request ")
 		exit_code.return_error()
 	end
+  if ngx.ctx.upload_request then
+      ngx.ctx.http_body = ""
+      return ""
+  end
 	local result = ""
 	local data = ngx.req.get_body_data()
 	if data then
