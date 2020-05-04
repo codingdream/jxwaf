@@ -1,6 +1,6 @@
 {
-    "waf_api_key": "5fc335bc-d778-4d90-ab3f-ece36bad4a24",
-    "waf_api_password": "6bace0ac-ddca-412f-b768-81407044ea0c",
+    "waf_api_key": "96d684bb-97bd-4af1-bd5f-72c008ed42d2",
+    "waf_api_password": "9a711b2a-30da-4eea-94fe-d1d44e4ee18a",
     "waf_update_website": "http://update2.jxwaf.com/waf_update",
     "waf_monitor_website": "http://update2.jxwaf.com/waf_monitor",
     "waf_local":"false",
